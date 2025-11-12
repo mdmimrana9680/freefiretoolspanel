@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreeFireToolsPanel</title>
+</head>
+<body style="font-family:sans-serif; text-align:center; margin-top:50px;">
+  <h1>🔥 FreeFireToolsPanel 🔥</h1>
+  <p>এই সাইটে ফ্রি ফায়ার প্লেয়াররা টুলস, সেন্সিটিভিটি সেটিংস এবং কনফিগ ফাইল ডাউনলোড করতে পারবে।</p>
+  
+  <div style="border:1px solid #ddd; width:600px; margin:auto; padding:20px;">
+    <h3>ধাপে ধাপে ডাউনলোড শুরু করুন</h3>
+    <p id="status">🕐 কনফার্ম দিন শুরু করতে...</p>
+    <button id="confirmBtn">Confirm</button>
+    <button id="continueBtn" disabled>Continue</button>
+  </div>
+
+  <script>
+    const confirmBtn = document.getElementById("confirmBtn");
+    const continueBtn = document.getElementById("continueBtn");
+    const status = document.getElementById("status");
+
+    confirmBtn.addEventListener("click", () => {
+      const randomTime = Math.floor(Math.random() * 10) + 10; // ১০–২০ সেকেন্ড
+      let remaining = randomTime;
+      confirmBtn.disabled = true;
+      status.textContent = `⏳ অপেক্ষা করুন ${remaining} সেকেন্ড...`;
+
+      const timer = setInterval(() => {
+        remaining--;
+        status.textContent = `⏳ অপেক্ষা করুন ${remaining} সেকেন্ড...`;
+        if (remaining <= 0) {
+          clearInterval(timer);
+          status.textContent = "✅ এখন Continue করুন!";
+          continueBtn.disabled = false;
+        }
+      }, 1000);
+    });
+
+    continueBtn.addEventListener("click", () => {
+      continueBtn.disabled = true;
+      status.textContent = "🔁 ধাপ সম্পূর্ণ... ডাউনলোড প্রস্তুত হচ্ছে...";
+      setTimeout(() => {
+        status.textContent = "🎉 সব ধাপ সম্পূর্ণ! নিচে ক্লিক করে ফাইল ডাউনলোড করুন👇";
+        const link = document.createElement("a");
+        link.href = "yourfile.zip"; // এখানে তোমার ফাইলের লিংক বসাও
+        link.download = "";
+        link.textContent = "⬇️ Download Now";
+        document.body.appendChild(link);
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
